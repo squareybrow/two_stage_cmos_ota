@@ -1,0 +1,20 @@
+** sch_path: /foss/designs/cmos_opamp/opamp_scheme.sch
+**.subckt opamp_scheme VDD I_REF VOUT VIN_2 VIN_1 VSS
+*.opin VOUT
+*.ipin VIN_1
+*.ipin VIN_2
+*.ipin I_REF
+*.ipin VDD
+*.ipin VSS
+V1 I_REF VBIAS 0
+C1 net3 VOUT {Cc}
+M1 net1 VIN_1 net2 VSS N_1u w=W1 l=L
+M2 net3 VIN_2 net2 VSS N_1u w=W2 l=L
+M3 net1 net1 VDD VDD P_1u w=W3 l=L
+M4 net3 net1 VDD VDD P_1u w=W4 l=L
+M5 net2 VBIAS VSS VSS N_1u w=W5 l=L
+M6 VOUT net3 VDD VDD P_1u w=W6 l=L
+M7 VOUT VBIAS VSS VSS N_1u w=W7 l=L
+M8 VBIAS VBIAS VSS VSS N_1u w=W8 l=L
+**.ends
+.end
