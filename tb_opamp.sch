@@ -87,7 +87,7 @@ print @m.x1.m8[id]
 print all
 .endc
 "}
-C {vsource.sym} 300 -450 0 0 {name=VIN_2 value=1.18 savecurrent=false}
-C {vdd.sym} 300 -480 0 0 {name=VCM4 lab=VIN_2}
+C {vsource.sym} 300 -450 0 0 {name=VIN value=1.18 savecurrent=false}
+C {vdd.sym} 300 -480 0 0 {name=VCM4 lab=VIN}
 C {gnd.sym} 300 -420 0 0 {name=VCM5 lab=0}
-C {lab_pin.sym} 110 -320 0 0 {name=p5 sig_type=std_logic lab=VIN_2}
+C {lab_pin.sym} 110 -320 0 0 {name=p5 sig_type=std_logic lab=VIN}

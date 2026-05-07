@@ -1,10 +1,10 @@
 ** sch_path: /foss/designs/cmos_opamp/tb_opamp_tran.sch
 **.subckt tb_opamp_tran
-x1 VDD I_REF VOUT VIN_2 VOUT VSS opamp_scheme
+x1 VDD I_REF VOUT VIN VOUT VSS opamp_scheme
 VDD VDD 0 2.5
 VSS VSS 0 -2.5
 I0 VDD I_REF 30u
-VIN_2 VIN_2 0 PULSE(0.68 1.68 10n 1n 1n 5u 10u)
+VIN VIN 0 PULSE(0.68 1.68 10n 1n 1n 5u 10u)
 **** begin user architecture code
 
 .MODEL N_1u NMOS LEVEL  = 3
@@ -51,7 +51,7 @@ VIN_2 VIN_2 0 PULSE(0.68 1.68 10n 1n 1n 5u 10u)
 
 
 
-.param L=1u W1=3.5u W2=3.5u W3=10u W4=10u W5=3u W6=86.6u W7=13u W8=3u Cc=2.5p
+.param L=1u W1=3.5u W2=3.5u W3=10u W4=10u W5=3u W6=86.6u W7=13u W8=3u Cc=2.6p
 
 
 
@@ -95,5 +95,5 @@ M8 VBIAS VBIAS VSS VSS N_1u w=W8 l=L
 
 .GLOBAL VDD
 .GLOBAL VSS
-.GLOBAL VIN_2
+.GLOBAL VIN
 .end

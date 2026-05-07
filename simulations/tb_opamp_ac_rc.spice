@@ -7,7 +7,7 @@ I0 VDD I_REF 30u
 CL VOUT 0 10p
 VIN VIN 0 DC 1.18 AC 1
 CIN 0 net1 10u
-R1 VOUT net1 10meg
+Rf VOUT net1 10meg
 **** begin user architecture code
 
 .MODEL N_1u NMOS LEVEL  = 3

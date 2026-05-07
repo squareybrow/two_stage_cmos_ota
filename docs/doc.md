@@ -235,18 +235,37 @@ in the table below:
 Component values: $C_c = 2.5pF$, $C_L = 10pF$
 
 ---
+# Simulation Results
 
-# Open-Loop Gain Measurement
+## DC Operating Point
+
+All transistors were verified to be in saturation before AC analysis. The testbench is shown in Fig 9.
+
+![alt text](tb_opamp.png)
+
+| Transistor | $\|V_{ov}\|$ | $\|V_{DS}\|$ | Region |
+|------------|----------|----------|--------------|
+| M1 | 0.745 | 1.748 | Saturation |
+| M2 | 0.745 | 1.706 | Saturation |
+| M3 | 0.216 | 1.116 | Saturation |
+| M4 | 0.216 | 1.159 | Saturation |
+| M5 | 0.463 | 2.134 | Saturation |
+| M6 | 0.259 | 1.320 | Saturation |
+| M7 | 0.463 | 3.679 | Saturation |
+| M8 | 0.463 | 1.263 | Saturation |
+
+
+## Open-Loop Gain Measurement (AC Analysis)
 
 Simulation of measurement of open-loop gain of op-amp is a difficult step to perform. The reason is the high differential gain in op-amps.
 
-In our case, with a gain of ~5000V/V, any offset voltage present is amplified by $5000.V_{OS}$ at the output. So, for any $V_{OS} < 0.5mV$, the output is driven to the maximum output swing possible, making it difficult to measure the open loop gain. This is shown in Fig 9.
+In our case, with a gain of ~5000V/V, any offset voltage present is amplified by $5000.V_{OS}$ at the output. So, for any $V_{OS} < 0.5mV$, the output is driven to the maximum output swing possible, making it difficult to measure the open loop gain. This is shown in Fig 10.
 
-![Open-Loop gain with offset voltage shown externally](fig9.jpeg)
+![Open-Loop gain with offset voltage shown externally](fig10.jpeg)
 
 To measure the open-loop gain, I have tried two different methods.
 
-## The LC Method
+### The LC Method
 
 This is a conceptually neat method. A large inductor is used between the feedback between $V_{out}$ and $V_{IN1}$, and a large capacitor is used between $V_{IN1}$ and $GND$.
 
@@ -254,14 +273,14 @@ At DC level, $f=0$, so the inductor acts as a short circuit, while the capacitor
 
 When a small AC signal (say, $V_{in})$ is applied, the inductor, which has a large value, essentially operates as an open circuit, while the capacitor acts as a short circuit to $GND$. So, $V_{out} = A_{v}.V_{in}$.
 
-The test bench and simulation results with this method are given in Fig 10 and Fig 11.
+The test bench and simulation results with this method are given in Fig 11 and Fig 12.
 
 ![Test Bench](tb_opamp_ac_lc.png)
 ![Bode Plot](res_opamp_ac_lc.png)
 
 However, this is not a practical method, since such large inductors and capacitors are generally not available.
 
-## The RC Method
+### The RC Method
 
 This method uses a large resistor $(R_f)$ in place of the inductor. Because the gate terminal of the input MOSFET has very high DC impedance, the steady-state current flowing through the feedback loop is approximately zero ($I_f \approx 0$). Consequently, there is zero voltage drop across $R_f$, this forces $V_{out} = V_{in1}$ and causes the circuit to operate as a unity-gain amplifier at DC.
 
@@ -269,7 +288,7 @@ On applying a small AC signal, the capacitor acts as a short-circuit to $GND$. S
 
 In this circuit, it is necessary to select the $\frac{1}{RC}$ time constant a factor of $A_v(0)$ less than the anticipated dominant pole of the op-amp. The true open loop characteristics will not be observed until the frequency is approximately $\frac{A_v(0)}{RC}$, Above this frequency, the gain is essentially the open-loop gain of the op-amp. This method works well for both simulation and measurement.
 
-#### Component Selection
+##### Component Selection
 
 To make sure the newly introduced zero doesn't interfere with our gain, values of $C_{in} = 10uF$ and $R_f = 10M\Omega$ were chosen so the pole lines very close to the origin.
 
@@ -281,7 +300,41 @@ $f_{obs} = \frac{A_{v}(0)}{2.\pi.RC} \approx 8.9Hz$
 
 So, we begin seeing the open-loop gain near 10Hz.
 
-The test bench and simulation results with this method are given in Fig 12 and Fig 13.
+The test bench and simulation results with this method are given in Fig 13 and Fig 14.
 
 ![Test Bench](tb_opamp_ac_rc.png)
 ![Bode Plot](res_opamp_ac_rc.png)
+
+The results using both methods are given below:
+
+| Parameter | LC Method | RC Method | Specification |
+|-----------|-----------|-----------|---------------|
+| Max Gain | 74.07 dB | 74.00 dB | >73.98 dB |
+| GBW | 5.85 MHz | 5.85 MHz | 5 MHz |
+| Phase Margin | 63.18° | 63.19 | >60° |
+
+## Transient Response and Slew Rate
+
+A large-signal step input was applied to measure the slew rate. The test bench and output waveforms are shown in Fig 15 and Fig 16.
+
+![Test Bench](tb_opamp_tran.png)
+![Tran PLot](res_opamp_tran.png)
+
+The average slew rate is measured between 10% and 90% of the final voltage swing. It is found to be:
+
+$SR = 10.637V/{\mu}s$
+
+
+## DC Sweep - Linear Output Swing
+
+The linear output swing is defined as the voltage range over which the amplifier maintains at least 90% of its ideal gain. Because the circuit is configured as a unity-gain buffer, the ideal DC transfer characteristic has a slope of $1\space{V/V}$. Therefore, the absolute limits of the output swing are identified as the points where the derivative of the transfer curve $\frac{dV_{out}}{dV_{in}}$ drops below $0.9 \space V/V$
+
+The test bench and simulation result are given in Fig 17 and Fig 18.
+
+![Test Bench](tb_opamp_dc.png)
+![DC Plot](res_opamp_dc.png)
+
+The results obtained are given below:
+
+- $V_{out}(max) = 2.44V$
+- $V_{out}(min) = -2.27V$

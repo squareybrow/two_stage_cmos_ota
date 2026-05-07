@@ -67,10 +67,10 @@ C {code.sym} 530 -280 0 0 {name=models only_toplevel=false value=
 + CJSW   = 300E-12         MJSW   = 0.5
 "}
 C {code.sym} 670 -280 0 0 {name=parameters only_toplevel=false value=
-".param L=1u W1=3.5u W2=3.5u W3=10u W4=10u W5=3u W6=86.6u W7=13u W8=3u Cc=2.5p
+".param L=1u W1=3.5u W2=3.5u W3=10u W4=10u W5=3u W6=86.6u W7=13u W8=3u Cc=2.6p
 "}
 C {lab_wire.sym} 480 -280 0 1 {name=p7 sig_type=std_logic lab=VOUT}
-C {code_shown.sym} 400 -550 0 0 {name=spice only_toplevel=false value=
+C {code_shown.sym} 400 -530 0 0 {name=spice only_toplevel=false value=
 "
 .control
 tran 1n 15u
@@ -83,7 +83,7 @@ print SR_avg
 write tb_opamp_tran.raw
 .endc
 "}
-C {vsource.sym} 300 -450 0 0 {name=VIN_2 value="PULSE(0.68 1.68 10n 1n 1n 5u 10u)" savecurrent=false}
-C {vdd.sym} 300 -480 0 0 {name=VCM4 lab=VIN_2}
+C {vsource.sym} 300 -450 0 0 {name=VIN value="PULSE(0.68 1.68 10n 1n 1n 5u 10u)" savecurrent=false}
+C {vdd.sym} 300 -480 0 0 {name=VCM4 lab=VIN}
 C {gnd.sym} 300 -420 0 0 {name=VCM5 lab=0}
-C {lab_pin.sym} 140 -320 0 0 {name=p5 sig_type=std_logic lab=VIN_2}
+C {lab_pin.sym} 140 -320 0 0 {name=p5 sig_type=std_logic lab=VIN}
