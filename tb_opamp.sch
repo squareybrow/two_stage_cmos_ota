@@ -67,7 +67,7 @@ C {code.sym} 350 -480 0 0 {name=models only_toplevel=false value=
 + CJSW   = 300E-12         MJSW   = 0.5
 "}
 C {code.sym} 470 -480 0 0 {name=parameters only_toplevel=false value=
-".param L=1u W1=3.5u W2=3.5u W3=10u W4=10u W5=3u W6=86.6u W7=13u W8=3u Cc=2.5p
+".param L=1u W1=3u W2=3u W3=10u W4=10u W5=3u W6=86u W7=13u W8=3u Cc=3p
 "}
 C {lab_wire.sym} 450 -280 0 1 {name=p7 sig_type=std_logic lab=VOUT}
 C {code_shown.sym} 590 -500 0 0 {name=spice only_toplevel=false value=

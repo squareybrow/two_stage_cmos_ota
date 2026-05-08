@@ -191,7 +191,7 @@ Following the design procedure and substituting the values from requirements and
 - $ V_{DS5}(sat) = 0.411 $
 - $ (\frac{W}{L})_{5} \approx 3 $
 - $ g_{m6} = 942uS $
-- $ (\frac{W}{L})_{6} \approx 86 $
+- $ (\frac{W}{L})_{6} \approx 86.6 $
 - $ I_{6} = 130uA $
 - $ (\frac{W}{L})_{7} \approx 13 $
 - $ V_{CM} = 1.118V $
@@ -338,3 +338,51 @@ The results obtained are given below:
 
 - $V_{out}(max) = 2.44V$
 - $V_{out}(min) = -2.27V$
+---
+
+# Design Iterations
+
+## Iteration 1 - Initial Sizing ($\frac{W}{L} = 3$ for M1 and M2)
+
+| Parameter | Target | Result |
+|-----------|--------|--------|
+| Max Gain | $> 73.98 dB$ | $73.25 dB$ |
+| GBW | $5 MHz$ | $4.55 MHz$ |
+| Phase Margin | $>60^{\circ}$ | $68.08^{\circ}$ |
+
+Both Max Gain and GBW were not upto specification.
+
+Since $GBW = \frac{g_{m1}}{2\pi C_c}$ and $g_{m1} = \sqrt{2K'_p \cdot \frac{W}{L} \cdot I_{D1}}$, increasing $g_{m1}$ simultaneously increases both GBW as well as the first-stage gain.
+
+So, increasing $\frac{W}{L}$ for M1 and M2 may be the way to go.
+
+## Iteration 2 - ($\frac{W}{L} = 3.5$ for M1 and M2)
+
+| Parameter | Target | Result |
+|-----------|--------|--------|
+| Max Gain | $> 73.98 dB$ | $74.07 dB$ |
+| GBW | $5 MHz$ | $4.96 MHz$ |
+| Phase Margin | $>60^{\circ}$ | $66.20^{\circ}$ |
+| Slew Rate | $>10u/V^2$ | $8.86u/V^2$ |
+
+While the gain and GBW seem to be well within specifications, the slew rate is lower than our target.
+
+$ SR = \frac{I_{5}}{C_{c}} $, we may either try increasing $I_5$ or decreasing $C_{c}$. Increasing $I_5$ requires us to go through every calculation step above again to get the updated sizing. 
+
+Our use of $C_c = 3pF$ is well above the condition of $C_c > 0.22C_L$, which means $C_c > 2.2pF$.
+
+Let us choose $C_c = 2.5pF$
+
+## Iteration 3 - ($C_c = 2.5pF$)
+
+| Parameter | Target | Result |
+|-----------|--------|--------|
+| Max Gain | $> 73.98 dB$ | $74.07 dB$ |
+| GBW | $5 MHz$ | $5.85 MHz$ |
+| Phase Margin | $>60^{\circ}$ | $63.18^{\circ}$ |
+| Slew Rate | $>10u/V^2$ | $10.64u/V^2$ |
+
+Now we seem to be within good margins of out specifications.
+
+We will adopt this sizing.
+
