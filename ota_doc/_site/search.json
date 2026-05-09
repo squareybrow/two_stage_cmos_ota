@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "",
+    "text": "This project walks through the process of building and analyzing the performance of a Two-Stage Unbuffered CMOS Operational Transconductance Amplifier (OTA) using SPICE.\nIt is done to teach myself how to design circuits rather than simply analyze the equations or solve problems in standard college curricula.\n\n\nThe two stage CMOS OTA is an introductory circuit in the study of op-amps that uses a standard single output differential pair and a common source stage in cascade, making it easier to analyze.\n\nIt uses cascaded topology which provides higher gain compared to single stage amplifiers.\nThe second stage uses only 2 transistors, which results is high output swing.\nCMOS amps suffer less from non-idealities compared to their BJT counterparts due to their extremely high input impedance.\n\nThe above reasons make it a very enticing circuit to learn design process without getting overwhelmed."
+  },
+  {
+    "objectID": "index.html#why-a-two-stage-cmos-ota",
+    "href": "index.html#why-a-two-stage-cmos-ota",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "",
+    "text": "The two stage CMOS OTA is an introductory circuit in the study of op-amps that uses a standard single output differential pair and a common source stage in cascade, making it easier to analyze.\n\nIt uses cascaded topology which provides higher gain compared to single stage amplifiers.\nThe second stage uses only 2 transistors, which results is high output swing.\nCMOS amps suffer less from non-idealities compared to their BJT counterparts due to their extremely high input impedance.\n\nThe above reasons make it a very enticing circuit to learn design process without getting overwhelmed."
+  },
+  {
+    "objectID": "index.html#miller-compensation",
+    "href": "index.html#miller-compensation",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "3.1 Miller Compensation",
+    "text": "3.1 Miller Compensation\nAdding the compensation capacitor \\(C_{c}\\), the resulting circuit is shown in Fig 5:\n\n\n\n\n\n\nFigure 5: Compensated Two-Stage op-amp\n\n\n\nThe resulting small-signal model is shown in Fig 6:\n\n\n\n\n\n\nFigure 6: Small-signal model of the compensated two-stage op-amp. Adapted from (Allen and Holberg 2011)\n\n\n\nUsing Miller’s Approximation and finding poles by inspection, we get\n\\[\np_{1} \\approx (\\frac{-1}{R_{I}.[C_{I} + C_{c}(1 + g_{mII}.R_{II})]})\\] and,\n\\[\np_{2} \\approx (\\frac{-g_{mII}}{C_{II} + C_{c}}) \\approx (\\frac{-g_{mII}}{C_{II}}) ;\\space if \\space C_{II} &gt; C_{c}\\]\nA zero also occurs on the positive real axis, which can be found from the small signal model relatively easily by setting \\(A_{v} = 0\\)\n\\[\nz_{1} = (\\frac{g_{mII}}{C_{c}})\\]\nThe addition of miller capacitance moves the dominant pole \\((p_{1})\\) to the left and shifts the non dominant pole \\((p_{2})\\) to the right.\nIf we use our assumption of \\(C_{II} &gt; C_{c}\\), then the zero is further to the right of \\((p_{2})\\)\nFig 7 shows results of compensation compared to the uncompensated state.\n\n\n\n\n\n\nFigure 7: Position of Poles and Zeroes in Compensated and Uncompensated OTA\n\n\n\nThe Unity Gain Bandwidth is defined as the angular frequency (or frequency) when the gain crosses the \\(0dB\\) mark. It is given as:\n\\[\n(\\omega_{GBW}) \\approx (\\frac{g_{mI}}{C_{c}})\\]\nIf we define \\(z_{1} &gt; 10.{\\omega_{GBW}}\\), then, to achieve \\(\\phi_{M} &gt; 60^{\\circ}\\), we need the following condition:\n\\[\np_{2} &gt; 2.2.{\\omega_{GBW}}\\] OR, \\[\nC_{c} &gt; 0.22.C_{2}\\]"
+  },
+  {
+    "objectID": "index.html#component-sizing",
+    "href": "index.html#component-sizing",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "3.2 Component Sizing",
+    "text": "3.2 Component Sizing\nBefore beginning, let us summarise the important relationships:\n\nFirst Stage Gain: \\[\nA_{v1} = \\frac{-g_{m1}}{g_{ds2} + g_{ds4}} = \\frac{-2.g_{m1}}{I_{5}.(\\lambda_{2} + \\lambda_{4})}\\]\nSecond Stage Gain: \\[\nA_{v2} = \\frac{-g_{m2}}{g_{ds6} + g_{ds7}} = \\frac{-2.g_{m2}}{I_{6}.(\\lambda_{6} + \\lambda_{7})}\\]\nUnity Gain Bandwidth:\n\\[\n\\omega_{GBW} \\approx \\frac{g_{m2}}{C_{c}}\\]\nSlew Rate: \\[\nSR = \\frac{I_{5}}{C_{c}}\\]\n\\(ICMR_{max} = V_{in}(max)\\) = \\[\nV_{DD} - \\sqrt{\\frac{I_{5}}{K'(\\frac{W}{L})_{3}}} - |V_{T03}|(max) + V_{T1}(min)\\]\n\\(ICMR_{min} = V_{in}(min)\\) = \\[V_{SS} + \\sqrt{\\frac{I_{5}}{K'(\\frac{W}{L})_{1}}} + V_{T1}(max) + V_{DS5}(sat)\\]\nSaturation Voltage: \\[\nV_{DS5}(sat) = \\sqrt{\\frac{2.I_{DS}}{K'(\\frac{W}{L})}}\\]\n\nGoing onto the design procedure, a first cut sequence we can follow is:\n\nThe design procedure begins by choosing a device length to be used by the circuit. This length determines the channel length modulation parameter \\((\\lambda)\\), which is necessary to calculate amplifier gain.\nKeeping our definition of \\(z_{1} &gt; 10.{\\omega_{GBW}}\\), minimum value of \\(C_{c}\\) can be defined as: \\[\nC_{c} &gt; 0.22.C_{2}\\]\nNext, minimum value of tail current \\((I_{5})\\) can be determined by : \\[\nI_{5} = SR.C_{c}\\]\nThe aspect ratio of M3 can now be determined using \\(ICMR_{max}\\) as: \\[\n(\\frac{W}{L})_{3} = (\\frac{W}{L})_{4} = \\frac{I_{5}}{(K'_{3}).(ICMR_{max})^{2}}\\]\nRequirement of transconductance of input transistors can be determined from the knowledge of \\(C_c\\) and \\(f_{GBW}\\) \\[\ng_{m1} = g_{m2} = {f_{GBW}}.C_{c}\\]\nThe aspect ratio of the input transistors are directly obtainable from \\(g_{m1}\\) as: \\[\n(\\frac{W}{L})_{1} = (\\frac{W}{L})_{2} = \\frac{g_{m1}^{2}}{K'_{1}.I_{5}}\\]\nThe saturation voltage of M5 can now be calculated using \\(ICMR_{min}\\) \\[\nV_{DS5} = (ICMR_{min}) - V_{SS} - \\sqrt{\\frac{I_{5}}{K'(\\frac{W}{L})_{1}}} - V_{T1}(max)\\]\nWith \\(V_{DS5}\\) determined, the aspect ratio of M5 can be extracted as: \\[\n(\\frac{W}{L})_{5} = \\frac{2.I_{5}}{K'_{5}.(V_{DS5})^{2}}\\]\nAgain, following \\(z_{1} &gt; 10.{\\omega_{GBW}}\\), we can calculate the transconductance of M6 as: \\[\ng_{m6} = 2.2(g_{m2})(\\frac{C_{L}}{C_c})\\]\nTo achieve proper current mirroring of first-stage current mirror load, \\(V_{SG4} = V_{SG6}\\). using \\(g_{m} = K'.(\\frac{W}{L})(V_{GS}-V_{T}\\) \\[\n(\\frac{W}{L})_{6} = (\\frac{W}{L})_{4}.(\\frac{g_{m6}}{g_{m4}})\\]\nKnowing \\(g_{m6}\\) and \\((\\frac{W}{L})_{6}\\), we can determine current flowing through M6 as: \\[\nI_{6} = \\frac{g_{m6}^{2}}{2.K'_{6}.(\\frac{W}{L})_{6}}\\]\nAspect ratio of M7 can be extracted from the balancing equation below: \\[\n(\\frac{W}{L})_{7} = (\\frac{W}{L}){5}.(\\frac{I_{6}}{I_{5}})\\]\nWe calculate power dissipated as the \\(total \\space current \\space flowing \\space through \\space the \\space supply \\space voltage * total \\space supply \\space voltage\\) \\[\nP_{dis} = (I_{5} + I_{6} + I_{8}).(V_{DD} + |V_{SS}|)\\]\nNow, the gain must be checked against the specifications. If it is too low, \\(I_{5}\\) and \\(I_{6}\\) may be decreased or the ratios \\((\\frac{W}{L})_{2}\\) and \\((\\frac{W}{L})_{6}\\) may be increased. All the previous calculations need to be performed again to ensure all conditions are satisfied."
+  },
+  {
+    "objectID": "index.html#biasing-network",
+    "href": "index.html#biasing-network",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "3.3 Biasing Network",
+    "text": "3.3 Biasing Network\n\nA current mirror approach with a stable reference current source (say, using \\(\\beta-Multiplier\\)) is used to bias the current sink \\(M_{7}\\) and tail current source \\(M_{5}\\)\n\nSince \\(M_{8}\\) acts as our reference current mirror, we can have \\((\\frac{W}{L})_{8} = (\\frac{W}{L})_{5}\\) to set \\(I_{tail}=I_{ref}\\), and the relation of \\((\\frac{W}{L})_{5}\\) with \\((\\frac{W}{L})_{7}\\) is known from above calculations.\n\nThe Bias Point of the differential input is found as:\n\\[\ng_m = \\frac{2I_{D}}{V_{ov}}\n\\implies |A_{v1}| = \\frac{g_{m1}}{g_{ds2} + g_{ds4}} = \\frac{2}{V_{ov}.(\\lambda_{2}+\\lambda_{4})}\n\\implies V_{ov} = \\frac{2}{|A_{v1}|.(\\lambda_{2}+\\lambda_{4})}\\]"
+  },
+  {
+    "objectID": "index.html#requirements-and-specifications",
+    "href": "index.html#requirements-and-specifications",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "3.4 Requirements and Specifications",
+    "text": "3.4 Requirements and Specifications\nThe specifications we will use are as follows:\n\n\\[\nA_{v} &gt; 5000{\\space}V/V\\]\n$ {_{GBW}} = 5MHz $\n\\(\\phi_{M} &gt; 60^{\\circ}\\)\n\\(ICMR- = -1V\\)\n\\(ICMR+ = 2V\\)\n\\(SR &gt; 10V/us\\)\n\\(V_{out} \\pm2V\\)\n\\(V_{DD} = 2.5V\\)\n\\(V_{SS} = -2.5V\\)\n\\(C_{L} = 10pF\\)\n\\(P_{dis} &lt; 2mW\\)\n\\(L = 1um\\)\n\nThe important process parameters from the model used are:\n\n$ K’_{n} = 120uA/V^{2} $\n$ V_{TN} = 0.8V $\n$ K’_{p} = 40uA/V^{2} $\n$ V_{TP} = -0.9V $"
+  },
+  {
+    "objectID": "index.html#initial-sizing",
+    "href": "index.html#initial-sizing",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "3.5 Initial Sizing",
+    "text": "3.5 Initial Sizing\nFollowing the design procedure and substituting the values from requirements and process parameters, the initial calculated values are:\n\n$ C_{c} = 3pF $\n$ I_{5} = 30uA $\n$ (){3} = (){4} $\n$ g_{m1} = g_{m2} = 94.2uS $\n$ g_{m3} = g_{m4} = 109uS $\n$ (){1} = (){2} $\n$ V_{DS5}(sat) = 0.411 $\n$ ()_{5} $\n$ g_{m6} = 942uS $\n$ ()_{6} $\n$ I_{6} = 130uA $\n$ ()_{7} $\n$ V_{CM} = 1.118V $\n$ A_{v} $\n$ P_{dis} = 0.95mW $\n\nThese initial values were entered into xschem and simulated. The following sections document the schematic implementation, challenges encountered in measuring the open-loop gain and the iterative refinements made to meet all specifications."
+  },
+  {
+    "objectID": "index.html#pre-simulation-results",
+    "href": "index.html#pre-simulation-results",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "3.6 Pre-Simulation Results",
+    "text": "3.6 Pre-Simulation Results\nBased on the napkin math above, the following performace is expected:\n\n\n\nParameter\nPredicted Value\nSpecification\n\n\n\n\nDC Gain\n\\(\\approx74.9 dB (5600 V/V)\\)\n\\(&gt; 73.98 dB (5000 V/V)\\)\n\n\nGBW\n\\(5 MHz\\)\n\\(5 MHz\\)\n\n\nPhase Margin\n\\(&gt; 60^{\\circ}\\)\n\\(&gt; 60^{\\circ}\\)\n\n\nSlew Rate\n\\(10 V/μs\\)\n&gt; \\(10 V/μs\\)\n\n\nPower\n\\(0.95mW\\)\n&lt; \\(2mW\\)"
+  },
+  {
+    "objectID": "index.html#schematic-implementation",
+    "href": "index.html#schematic-implementation",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "3.7 Schematic Implementation",
+    "text": "3.7 Schematic Implementation\nThe circuit was implemented in xschem with ngspice using Level 3 SPICE model with 1um channel length. The complete schematic is shown in Fig 8.\nSource for model: https://cmosedu.com/cmos1/cmosedu_models.txt\n\n\n\nFull OTA Schematic\n\n\nThe final transistor sizing after all iterations is summarised in the table below:\n\n\n\nTransistor\nType\nW/L\n\n\n\n\nM1, M2\nNMOS\n3.5\n\n\nM3, M4\nPMOS\n10\n\n\nM5\nNMOS\n3\n\n\nM6\nPMOS\n86.6\n\n\nM7\nNMOS\n13\n\n\nM8\nNMOS\n3\n\n\n\nComponent values: \\(C_c = 2.5pF\\), \\(C_L = 10pF\\)"
+  },
+  {
+    "objectID": "index.html#dc-operating-point",
+    "href": "index.html#dc-operating-point",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "4.1 DC Operating Point",
+    "text": "4.1 DC Operating Point\nAll transistors were verified to be in saturation before AC analysis. The testbench is shown in Fig 9.\n\n\n\nalt text\n\n\n\n\n\nTransistor\n\\(\\|V_{ov}\\|\\)\n\\(\\|V_{DS}\\|\\)\nRegion\n\n\n\n\nM1\n0.745\n1.748\nSaturation\n\n\nM2\n0.745\n1.706\nSaturation\n\n\nM3\n0.216\n1.116\nSaturation\n\n\nM4\n0.216\n1.159\nSaturation\n\n\nM5\n0.463\n2.134\nSaturation\n\n\nM6\n0.259\n1.320\nSaturation\n\n\nM7\n0.463\n3.679\nSaturation\n\n\nM8\n0.463\n1.263\nSaturation"
+  },
+  {
+    "objectID": "index.html#open-loop-gain-ac-analysis",
+    "href": "index.html#open-loop-gain-ac-analysis",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "4.2 Open-Loop Gain (AC Analysis)",
+    "text": "4.2 Open-Loop Gain (AC Analysis)\nSimulation of measurement of open-loop gain of op-amp is a difficult step to perform. The reason is the high differential gain in op-amps.\nIn our case, with a gain of ~5000V/V, any offset voltage present is amplified by \\(5000.V_{OS}\\) at the output. So, for any \\(V_{OS} &lt; 0.5mV\\), the output is driven to the maximum output swing possible, making it difficult to measure the open loop gain. This is shown in Fig 10.\n\n\n\nOpen-Loop gain with offset voltage shown externally\n\n\nTo measure the open-loop gain, I have tried two different methods.\n\n4.2.1 The LC Method\nThis is a conceptually neat method. A large inductor is used between the feedback between \\(V_{out}\\) and \\(V_{IN1}\\), and a large capacitor is used between \\(V_{IN1}\\) and \\(GND\\).\nAt DC level, \\(f=0\\), so the inductor acts as a short circuit, while the capacitor acts as open circuit, this results in the amplifier working as a unity gain amplifier.\nWhen a small AC signal (say, \\(V_{in})\\) is applied, the inductor, which has a large value, essentially operates as an open circuit, while the capacitor acts as a short circuit to \\(GND\\). So, \\(V_{out} = A_{v}.V_{in}\\).\nThe test bench and simulation results with this method are given in Fig 11 and Fig 12.\n \nHowever, this is not a practical method, since such large inductors and capacitors are generally not available.\n\n\n4.2.2 The RC Method\nThis method uses a large resistor \\((R_f)\\) in place of the inductor. Because the gate terminal of the input MOSFET has very high DC impedance, the steady-state current flowing through the feedback loop is approximately zero (\\(I_f \\approx 0\\)). Consequently, there is zero voltage drop across \\(R_f\\), this forces \\(V_{out} = V_{in1}\\) and causes the circuit to operate as a unity-gain amplifier at DC.\nOn applying a small AC signal, the capacitor acts as a short-circuit to \\(GND\\). So, again operating in the open-loop configuration, \\(V_{out} = A_{v}.V_{in}\\).\nIn this circuit, it is necessary to select the \\(\\frac{1}{RC}\\) time constant a factor of \\(A_v(0)\\) less than the anticipated dominant pole of the op-amp. The true open loop characteristics will not be observed until the frequency is approximately \\(\\frac{A_v(0)}{RC}\\), Above this frequency, the gain is essentially the open-loop gain of the op-amp. This method works well for both simulation and measurement.\n\n4.2.2.1 Component Selection\nTo make sure the newly introduced zero doesn’t interfere with our gain, values of \\(C_{in} = 10uF\\) and \\(R_f = 10M\\Omega\\) were chosen so the pole lies very close to the origin.\n\\(f_{z} = \\frac{1}{2.\\pi.RC} \\approx 1.59mHz\\)\nAs mentioned above, the true open loop characteristics will not be observed until the frequency is approximately \\(\\frac{A_v(0)}{RC}\\), i.e, the new pole.\n\\(f_{obs} = \\frac{A_{v}(0)}{2.\\pi.RC} \\approx 8.9Hz\\)\nSo, we begin seeing the open-loop gain near 10Hz.\nThe test bench and simulation results with this method are given in Fig 13 and Fig 14.\n \nThe results using both methods are given below:\n\n\n\nParameter\nLC Method\nRC Method\nSpecification\n\n\n\n\nMax Gain\n74.07 dB\n74.00 dB\n&gt;73.98 dB\n\n\nGBW\n5.85 MHz\n5.85 MHz\n5 MHz\n\n\nPhase Margin\n63.18°\n63.19\n&gt;60°"
+  },
+  {
+    "objectID": "index.html#transient-response-and-slew-rate",
+    "href": "index.html#transient-response-and-slew-rate",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "4.3 Transient Response and Slew Rate",
+    "text": "4.3 Transient Response and Slew Rate\nA large-signal step input was applied to measure the slew rate. The test bench and output waveforms are shown in Fig 15 and Fig 16.\n \nThe average slew rate is measured between 10% and 90% of the final voltage swing. It is found to be:\n\\(SR = 10.637V/{\\mu}s\\)"
+  },
+  {
+    "objectID": "index.html#dc-sweep---linear-output-swing",
+    "href": "index.html#dc-sweep---linear-output-swing",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "4.4 DC Sweep - Linear Output Swing",
+    "text": "4.4 DC Sweep - Linear Output Swing\nThe linear output swing is defined as the voltage range over which the amplifier maintains at least 90% of its ideal gain. Because the circuit is configured as a unity-gain buffer, the ideal DC transfer characteristic has a slope of \\(1\\space{V/V}\\). Therefore, the absolute limits of the output swing are identified as the points where the derivative of the transfer curve \\(\\frac{dV_{out}}{dV_{in}}\\) drops below \\(0.9 \\space V/V\\)\nThe test bench and simulation result are given in Fig 17 and Fig 18.\n \nThe results obtained are given below:\n\n\\(V_{out}(max) = 2.44V\\)\n\\(V_{out}(min) = -2.27V\\)"
+  },
+  {
+    "objectID": "index.html#iteration-1---initial-sizing-fracwl-3-for-m1-and-m2",
+    "href": "index.html#iteration-1---initial-sizing-fracwl-3-for-m1-and-m2",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "5.1 Iteration 1 - Initial Sizing (\\(\\frac{W}{L} = 3\\) for M1 and M2)",
+    "text": "5.1 Iteration 1 - Initial Sizing (\\(\\frac{W}{L} = 3\\) for M1 and M2)\n\n\n\nParameter\nTarget\nResult\n\n\n\n\nMax Gain\n\\(&gt; 73.98 dB\\)\n\\(73.25 dB\\)\n\n\nGBW\n\\(5 MHz\\)\n\\(4.55 MHz\\)\n\n\nPhase Margin\n\\(&gt;60^{\\circ}\\)\n\\(68.08^{\\circ}\\)\n\n\n\nBoth Max Gain and GBW were not upto specification.\nSince \\(GBW = \\frac{g_{m1}}{2\\pi C_c}\\) and \\(g_{m1} = \\sqrt{2K'_p \\cdot \\frac{W}{L} \\cdot I_{D1}}\\), increasing \\(g_{m1}\\) simultaneously increases both GBW as well as the first-stage gain.\nSo, increasing \\(\\frac{W}{L}\\) for M1 and M2 may be the way to go."
+  },
+  {
+    "objectID": "index.html#iteration-2---fracwl-3.5-for-m1-and-m2",
+    "href": "index.html#iteration-2---fracwl-3.5-for-m1-and-m2",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "5.2 Iteration 2 - (\\(\\frac{W}{L} = 3.5\\) for M1 and M2)",
+    "text": "5.2 Iteration 2 - (\\(\\frac{W}{L} = 3.5\\) for M1 and M2)\n\n\n\nParameter\nTarget\nResult\n\n\n\n\nMax Gain\n\\(&gt; 73.98 dB\\)\n\\(74.07 dB\\)\n\n\nGBW\n\\(5 MHz\\)\n\\(4.96 MHz\\)\n\n\nPhase Margin\n\\(&gt;60^{\\circ}\\)\n\\(66.20^{\\circ}\\)\n\n\nSlew Rate\n\\(&gt;10V/{\\mu}s\\)\n\\(8.86V/{\\mu}s\\)\n\n\n\nWhile the gain and GBW seem to be well within specifications, the slew rate is lower than our target.\n$ SR = $, we may either try increasing \\(I_5\\) or decreasing \\(C_{c}\\). Increasing \\(I_5\\) requires us to go through every calculation step above again to get the updated sizing.\nOur use of \\(C_c = 3pF\\) is well above the condition of \\(C_c &gt; 0.22C_L\\), which means \\(C_c &gt; 2.2pF\\).\nLet us choose \\(C_c = 2.5pF\\)"
+  },
+  {
+    "objectID": "index.html#iteration-3---c_c-2.5pf",
+    "href": "index.html#iteration-3---c_c-2.5pf",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "5.3 Iteration 3 - (\\(C_c = 2.5pF\\))",
+    "text": "5.3 Iteration 3 - (\\(C_c = 2.5pF\\))\n\n\n\nParameter\nTarget\nResult\n\n\n\n\nMax Gain\n\\(&gt; 73.98 dB\\)\n\\(74.07 dB\\)\n\n\nGBW\n\\(5 MHz\\)\n\\(5.85 MHz\\)\n\n\nPhase Margin\n\\(&gt;60^{\\circ}\\)\n\\(63.18^{\\circ}\\)\n\n\nSlew Rate\n\\(&gt;10V/{\\mu}s\\)\n\\(10.64V/{\\mu}s\\)\n\n\n\nNow we seem to be within good margins of out specifications.\nWe will adopt this sizing."
+  },
+  {
+    "objectID": "index.html#the-transistor-and-component-values-used",
+    "href": "index.html#the-transistor-and-component-values-used",
+    "title": "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier",
+    "section": "6.1 The Transistor and Component values used:",
+    "text": "6.1 The Transistor and Component values used:\n\n\n\nTransistor\nType\nW/L\nCurrent \\(({\\mu}A)\\)\n\n\n\n\nM1, M2\nNMOS\n3.5\n15.45, 15.48\n\n\nM3, M4\nPMOS\n10\n15.45, 15.48\n\n\nM5\nNMOS\n3\n30.93\n\n\nM6\nPMOS\n86.6\n176.68\n\n\nM7\nNMOS\n13\n176.68\n\n\nM8\nNMOS\n3\n30.00\n\n\n\nComponent values: \\(C_c = 2.5pF\\), \\(C_L = 10pF\\)"
+  }
+]

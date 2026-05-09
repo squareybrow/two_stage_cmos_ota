@@ -1,0 +1,28 @@
+/* Catppuccin Mocha Heading Overrides - Xschem Inspired */
+h1 {
+    color: #89b4fa !important;
+}
+
+/* Mocha Blue: Matches Xschem wires */
+h2 {
+    color: #a6e3a1 !important;
+}
+
+/* Mocha Green: Matches Xschem parameters/models */
+h3 {
+    color: #f38ba8 !important;
+}
+
+/* Mocha Red: Matches Xschem VDD/VSS pins */
+h4 {
+    color: #f9e2af !important;
+}
+
+/* Mocha Yellow: Matches Xschem node labels/text */
+
+/* Center all figure captions */
+figcaption {
+    text-align: center !important;
+    margin-top: 8px;
+    /* Adds a little breathing room below the image */
+}

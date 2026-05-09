@@ -1,0 +1,35 @@
+
+/*-- scss:defaults --*/
+
+/* Quarto base colors: https://quarto.org/docs/output-formats/html-themes.html#colors */
+
+$body-bg:    #11111b;
+$body-color: #cdd6f4;
+$link-color: #89b4fa;
+$input-bg:   #45475a;
+$popover-bg: #45475a;
+
+/* Bootstrap gray scale https://github.com/twbs/bootstrap/blob/c82919e8970c7ebebb87ded191b815c76737cd04/scss/_variables.scss#L10-L18 */
+
+$gray-100: #bac2de;
+$gray-200: #a6adc8;
+$gray-300: #9399b2;
+$gray-400: #7f849c;
+$gray-500: #6c7086;
+$gray-600: #585b70;
+$gray-700: #45475a;
+$gray-800: #313244;
+$gray-900: #1e1e2e;
+
+/* Bootstrap base colors: https://github.com/twbs/bootstrap/blob/c82919e8970c7ebebb87ded191b815c76737cd04/scss/_variables.scss#L39-L48*/
+
+$blue:    #89b4fa;
+$indigo:  #b4befe;
+$purple:  #cba6f7;
+$pink:    #f5c2e7;
+$red:     #f38ba8;
+$orange:  #fab387;
+$yellow:  #f9e2af;
+$green:   #a6e3a1;
+$teal:    #94e2d5;
+$cyan:    #89dceb;

@@ -1,0 +1,28 @@
+project:
+  type: website
+
+manuscript:
+  article: index.qmd
+
+format:
+  html:
+    theme: catppuccin-mocha.scss
+    css: custom.css
+    comments:
+      hypothesis: true
+  pdf:
+    documentclass: article
+    number-sections: true
+    colorlinks: true
+    include-in-header:
+      text: |
+        \usepackage{caption}
+        \captionsetup[figure]{justification=centering}
+  docx: default
+  jats: default
+
+execute:
+  freeze: true
+
+
+
