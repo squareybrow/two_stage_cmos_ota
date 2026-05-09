@@ -1,10 +1,8 @@
 ---
 title: "Design and Analysis of a Two-Stage CMOS Operational Transconductance Amplifier"
 author:
-  - name: Rishav Mishra
+  - name: Rishav
 bibliography: references.bib
-abstract: |
-  This document details the design, simulation, and iterative optimization of a Two-Stage Unbuffered CMOS Operational Transconductance Amplifier (OTA) using a 1µm process.
 format:
   html:
     toc: true
@@ -150,7 +148,7 @@ Before beginning, let us summarise the important relationships:
 
 2.  Second Stage Gain: 
     $$
-    A_{v2} = \frac{-g_{m2}}{g_{ds6} + g_{ds7}} = \frac{-2.g_{m2}}{I_{6}.(\lambda_{6} + \lambda_{7})}$$
+    A_{v2} = \frac{-g_{m6}}{g_{ds6} + g_{ds7}} = \frac{-2.g_{m6}}{I_{6}.(\lambda_{6} + \lambda_{7})}$$
 
 3.  Unity Gain Bandwidth:
 
@@ -190,7 +188,7 @@ Going onto the design procedure, a first cut sequence we can follow is:
 
 - Requirement of transconductance of input transistors can be determined from the knowledge of $C_c$ and $f_{GBW}$
   $$
-  g_{m1} = g_{m2} = {f_{GBW}}.C_{c}$$
+  g_{m1} = g_{m2} = {\omega_{GBW}}.C_{c}$$
 
 - The aspect ratio of the input transistors are directly obtainable from $g_{m1}$ as:
   $$
@@ -208,7 +206,7 @@ Going onto the design procedure, a first cut sequence we can follow is:
   $$
   g_{m6} = 2.2(g_{m2})(\frac{C_{L}}{C_c})$$
 
-- To achieve proper current mirroring of first-stage current mirror load, $V_{SG4} = V_{SG6}$. using $g_{m} = K'.(\frac{W}{L})(V_{GS}-V_{T}$
+- To achieve proper current mirroring of first-stage current mirror load, $V_{SG4} = V_{SG6}$. using $g_{m} = K'.(\frac{W}{L})(V_{GS}-V_{T})$
   $$
   (\frac{W}{L})_{6} = (\frac{W}{L})_{4}.(\frac{g_{m6}}{g_{m4}})$$
 
@@ -218,7 +216,7 @@ Going onto the design procedure, a first cut sequence we can follow is:
 
 - Aspect ratio of M7 can be extracted from the balancing equation below:
   $$
-  (\frac{W}{L})_{7} = (\frac{W}{L}){5}.(\frac{I_{6}}{I_{5}})$$
+  (\frac{W}{L})_{7} = (\frac{W}{L})_{5}.(\frac{I_{6}}{I_{5}})$$
 
 - We calculate power dissipated as the $total \space current \space flowing \space through \space the \space supply \space voltage * total \space supply \space voltage$
   $$
@@ -243,62 +241,88 @@ Going onto the design procedure, a first cut sequence we can follow is:
 
 The specifications we will use are as follows:
 
-- $$
-  A_{v} > 5000{\space}V/V$$
-- $$
-  {\omega}_{GBW} = 5MHz$$
-- $$
-  \phi_{M} > 60^{\circ}$$
-- $$
-  ICMR_{min} = -1{\space}V$$
-- $$
-  ICMR_{max} = 2{\space}V$$
-- $$
-  SR > 10{\space}V/{\mu}s$$
-- $$
-  V_{out} \pm2\{space}V$$
-- $$
-  V_{DD} = 2.5{\space}V$$
-- $$
-  V_{SS} = -2.5V$$
-- $C_{L} = 10pF$
-- $P_{dis} < 2mW$
-- $L = 1um$
+$$
+A_{v} > 5000{\space}V/V$$
+$$
+{f}_{GBW} = 5MHz$$
+$$
+\phi_{M} > 60^{\circ}$$
+$$
+ICMR_{min} = -1{\space}V$$
+$$
+ICMR_{max} = 2{\space}V$$
+$$
+SR > 10{\space}V/{\mu}s$$
+$$
+V_{out} {\pm}2{\space}V$$
+$$
+V_{DD} = 2.5{\space}V$$
+$$
+V_{SS} = -2.5{\space}V$$
+$$
+C_{L} = 10{\space}pF$$
+$$
+P_{dis} < 2{\space}mW$$
+$$
+L = 1{\space}{\mu}m$$
 
 The important process parameters from the model used are:
 
-- \$ K'\_{n} = 120uA/V\^{2} \$
-- \$ V\_{TN} = 0.8V \$
-- \$ K'\_{p} = 40uA/V\^{2} \$
-- \$ V\_{TP} = -0.9V \$
+$$
+K'_{n} = 120{\space}{\mu}A/V^{2}$$
+$$
+V_{TN} = 0.8{\space}V$$
+$$
+{\lambda}_{n} = 0.04{\space}V^{-1}{\space}(at{\space}L=1{\space}{\mu}m)$$
+$$
+K'_{p} = 40{\space}{\mu}A/V^{2}$$
+$$
+V_{TP} = -0.9V$$
+$$
+{\lambda}_{p} = 0.05{\space}V^{-1}{\space}(at{\space}L=1{\space}{\mu}m)$$
 
 ## Initial Sizing
 
 Following the design procedure and substituting the values from requirements and process parameters, the initial calculated values are:
 
-- \$ C\_{c} = 3pF \$
-- \$ I\_{5} = 30uA \$
-- \$ (\frac{W}{L})*{3} = (*\frac{W}{L}){4} \approx 10 \$
-- \$ g\_{m1} = g\_{m2} = 94.2uS \$
-- \$ g\_{m3} = g\_{m4} = 109uS \$
-- \$ (\frac{W}{L})*{1} = (*\frac{W}{L}){2} \approx 3 \$
-- \$ V\_{DS5}(sat) = 0.411 \$
-- \$ (\frac{W}{L})\_{5} \approx 3 \$
-- \$ g\_{m6} = 942uS \$
-- \$ (\frac{W}{L})\_{6} \approx 86.6 \$
-- \$ I\_{6} = 130uA \$
-- \$ (\frac{W}{L})\_{7} \approx 13 \$
-- \$ V\_{CM} = 1.118V \$
-- \$ A\_{v} \approx 5600 \$
-- \$ P\_{dis} = 0.95mW \$
+$$
+C_{c} = 3{\space}pF $$
+$$
+I_{5} = 30{\space}{\mu}A $$
+$$
+(\frac{W}{L})_{3} = (\frac{W}{L})_{4} \approx 10 $$
+$$
+g_{m1} = g_{m2} = 94.2{\space}{\mu}S$$
+$$
+g_{m3} = g_{m4} = 109{\space}{\mu}S$$
+$$
+(\frac{W}{L})_{1} = (\frac{W}{L})_{2} \approx 3$$
+$$
+V_{DS5}(sat) = 0.411{\space}V$$
+$$
+(\frac{W}{L})_{5} \approx 3$$
+$$
+g_{m6} = 942{\space}{\mu}S$$
+$$
+(\frac{W}{L})_{6} \approx 86.6$$
+$$
+I_{6} = 130{\space}{\mu}A$$
+$$
+(\frac{W}{L})_{7} \approx 13$$
+$$ 
+V_{CM} = 1.118{\space}V$$
+$$
+A_{v} \approx 5600{\space}V/V$$
+$$
+P_{dis} = 0.95{\space}mW$$
 
-These initial values were entered into xschem and simulated. The following sections document the schematic implementation, challenges encountered in measuring the open-loop gain and the iterative refinements made to meet all specifications.
+These initial values were entered into **xschem** and simulated. The following sections document the schematic implementation, challenges encountered in measuring the open-loop gain and the iterative refinements made to meet all specifications.
 
 ## Pre-Simulation Results
 
 Based on the napkin math above, the following performace is expected:
 
-| Parameter    | Predicted Value             | Specification           |
+| Parameter    | Calculated Value             | Specification           |
 |--------------|-----------------------------|-------------------------|
 | DC Gain      | $\approx74.9 dB (5600 V/V)$ | $> 73.98 dB (5000 V/V)$ |
 | GBW          | $5 MHz$                     | $5 MHz$                 |
@@ -308,13 +332,11 @@ Based on the napkin math above, the following performace is expected:
 
 ## Schematic Implementation
 
-The circuit was implemented in xschem with ngspice using Level 3 SPICE model with 1um channel length. The complete schematic is shown in Fig 8.
+The circuit was implemented in Xschem and simulated using the Ngspice engine, utilizing a Level 3 SPICE model[@cmosedu_models] for a 1 µm CMOS process. The complete schematic is shown in Fig 8.
 
-*Source for model: https://cmosedu.com/cmos1/cmosedu_models.txt*
+![Final OTA Schematic](opamp_scheme.png){#fig-unique-name}
 
-![Full OTA Schematic](opamp_scheme.png)
-
-The final transistor sizing after all iterations is summarised in the table below:
+The final transistor sizing after all iterations is summarized in the table below:
 
 | Transistor | Type | W/L  |
 |------------|------|------|
@@ -325,7 +347,7 @@ The final transistor sizing after all iterations is summarised in the table belo
 | M7         | NMOS | 13   |
 | M8         | NMOS | 3    |
 
-Component values: $C_c = 2.5pF$, $C_L = 10pF$
+Component values: $C_c = 2.5{\space}pF$, $C_L = 10{\space}pF$
 
 ------------------------------------------------------------------------
 
@@ -333,11 +355,11 @@ Component values: $C_c = 2.5pF$, $C_L = 10pF$
 
 ## DC Operating Point
 
-All transistors were verified to be in saturation before AC analysis. The testbench is shown in Fig 9.
+All transistors were verified to be in saturation before AC analysis. The testbench used is shown in Fig 9.
 
-![alt text](tb_opamp.png)
+![Testbench to verify operating points](tb_opamp.png){#fig-unique-name}
 
-| Transistor | $\|V_{ov}\|$ | $\|V_{DS}\|$ | Region     |
+| Transistor | $|V_{ov}|$ | $|V_{DS}|$ | Region     |
 |------------|--------------|--------------|------------|
 | M1         | 0.745        | 1.748        | Saturation |
 | M2         | 0.745        | 1.706        | Saturation |
@@ -352,9 +374,9 @@ All transistors were verified to be in saturation before AC analysis. The testbe
 
 Simulation of measurement of open-loop gain of op-amp is a difficult step to perform. The reason is the high differential gain in op-amps.
 
-In our case, with a gain of \~5000V/V, any offset voltage present is amplified by $5000.V_{OS}$ at the output. So, for any $V_{OS} < 0.5mV$, the output is driven to the maximum output swing possible, making it difficult to measure the open loop gain. This is shown in Fig 10.
+In our case, with a gain of $~5000{\space}V/V$, any offset voltage present is amplified by $5000.V_{OS}$ at the output. So, for any $V_{OS} < 0.5mV$, the output is driven to the maximum output swing possible, making it difficult to measure the open loop gain. This is shown in Fig 10.
 
-![Open-Loop gain with offset voltage shown externally](fig10.jpeg)
+![Open-Loop gain with offset voltage shown externally](fig10.jpeg){#fig-unique-name}
 
 To measure the open-loop gain, I have tried two different methods.
 
@@ -368,7 +390,9 @@ When a small AC signal (say, $V_{in})$ is applied, the inductor, which has a lar
 
 The test bench and simulation results with this method are given in Fig 11 and Fig 12.
 
-![Test Bench](tb_opamp_ac_lc.png) ![Bode Plot](res_opamp_ac_lc.png)
+![Test Bench for LC Method of measuring open-loop gain](tb_opamp_ac_lc.png){#fig-unique-name}
+
+![Bode Plot for LC Method of measuring open-loop gain](res_opamp_ac_lc.png){#fig-unique-name}
 
 However, this is not a practical method, since such large inductors and capacitors are generally not available.
 
@@ -376,7 +400,7 @@ However, this is not a practical method, since such large inductors and capacito
 
 This method uses a large resistor $(R_f)$ in place of the inductor. Because the gate terminal of the input MOSFET has very high DC impedance, the steady-state current flowing through the feedback loop is approximately zero ($I_f \approx 0$). Consequently, there is zero voltage drop across $R_f$, this forces $V_{out} = V_{in1}$ and causes the circuit to operate as a unity-gain amplifier at DC.
 
-On applying a small AC signal, the capacitor acts as a short-circuit to $GND$. So, again operating in the open-loop configuration, $V_{out} = A_{v}.V_{in}$.
+On applying a small AC signal, the capacitor acts as a short-circuit to $GND$. So, again, operating in the open-loop configuration, $V_{out} = A_{v}.V_{in}$.
 
 In this circuit, it is necessary to select the $\frac{1}{RC}$ time constant a factor of $A_v(0)$ less than the anticipated dominant pole of the op-amp. The true open loop characteristics will not be observed until the frequency is approximately $\frac{A_v(0)}{RC}$, Above this frequency, the gain is essentially the open-loop gain of the op-amp. This method works well for both simulation and measurement.
 
@@ -394,7 +418,9 @@ So, we begin seeing the open-loop gain near 10Hz.
 
 The test bench and simulation results with this method are given in Fig 13 and Fig 14.
 
-![Test Bench](tb_opamp_ac_rc.png) ![Bode Plot](res_opamp_ac_rc.png)
+![Test Bench for RC Method of measuring open-loop gain](tb_opamp_ac_rc.png){#fig-unique-name}
+
+![Bode Plot for RC Method of measuring open-loop gain](res_opamp_ac_rc.png){#fig-unique-name}
 
 The results using both methods are given below:
 
@@ -406,9 +432,11 @@ The results using both methods are given below:
 
 ## Transient Response and Slew Rate
 
-A large-signal step input was applied to measure the slew rate. The test bench and output waveforms are shown in Fig 15 and Fig 16.
+Slew Rate is the rate of change of output voltage with respect to time. A large-signal step input was applied to measure the slew rate. The test bench and output waveforms are shown in Fig 15 and Fig 16.
 
-![Test Bench](tb_opamp_tran.png) ![Tran PLot](res_opamp_tran.png)
+![Test Bench to measure Slew Rate](tb_opamp_tran.png){#fig-unique-name}
+
+![Time domain response of op-amp to measure Slew Rate](res_opamp_tran.png){#fig-unique-name}
 
 The average slew rate is measured between 10% and 90% of the final voltage swing. It is found to be:
 
@@ -420,7 +448,9 @@ The linear output swing is defined as the voltage range over which the amplifier
 
 The test bench and simulation result are given in Fig 17 and Fig 18.
 
-![Test Bench](tb_opamp_dc.png) ![DC Plot](res_opamp_dc.png)
+![Test Bench to measure Linear Output Swing](tb_opamp_dc.png){#fig-unique-name}
+
+![Output Voltage response of input DC sweep.](res_opamp_dc.png){#fig-unique-name}
 
 The results obtained are given below:
 
@@ -439,11 +469,11 @@ The results obtained are given below:
 | GBW          | $5 MHz$       | $4.55 MHz$      |
 | Phase Margin | $>60^{\circ}$ | $68.08^{\circ}$ |
 
-Both Max Gain and GBW were not upto specification.
+Both Max Gain and GBW were not up to specification.
 
 Since $GBW = \frac{g_{m1}}{2\pi C_c}$ and $g_{m1} = \sqrt{2K'_p \cdot \frac{W}{L} \cdot I_{D1}}$, increasing $g_{m1}$ simultaneously increases both GBW as well as the first-stage gain.
 
-So, increasing $\frac{W}{L}$ for M1 and M2 may be the way to go.
+So, increasing $\frac{W}{L}$ for M1 and M2 is the next logical step.
 
 ## Iteration 2 - ($\frac{W}{L} = 3.5$ for M1 and M2)
 
@@ -456,11 +486,11 @@ So, increasing $\frac{W}{L}$ for M1 and M2 may be the way to go.
 
 While the gain and GBW seem to be well within specifications, the slew rate is lower than our target.
 
-\$ SR = \frac{I_{5}}{C_{c}} \$, we may either try increasing $I_5$ or decreasing $C_{c}$. Increasing $I_5$ requires us to go through every calculation step above again to get the updated sizing.
+Since $SR = \frac{I_{5}}{C_{c}}$, we may either try increasing $I_5$ or decreasing $C_{c}$. Increasing $I_5$ requires us to go through every calculation step above again to get the updated sizing, so here we try decreasing $C_{c}$ instead.
 
 Our use of $C_c = 3pF$ is well above the condition of $C_c > 0.22C_L$, which means $C_c > 2.2pF$.
 
-Let us choose $C_c = 2.5pF$
+Let us use $C_c = 2.5pF$
 
 ## Iteration 3 - ($C_c = 2.5pF$)
 
@@ -501,9 +531,9 @@ Component values: $C_c = 2.5pF$, $C_L = 10pF$
 
 # Limitations and Known Critiques
 
-The Miller-compensated two-stage OTA with a compensation capacitor has known limitations. Jacob Baker notes in his resources that this topology, particularly with a zero-nulling resistor, has practical drawbacks compared to more modern compensation strategies.
+The traditional Miller-compensated two-stage OTA with a compensation capacitor has known limitations. Baker notes that this topology, particularly with a zero-nulling resistor, has practical drawbacks—such as slower response times, larger layout areas, and higher power consumption—compared to more modern "indirect" compensation strategies, such as using split-length devices [@baker_bad_design].
 
-![Baker's critique](fig19.png)
+![Baker's critique on traditional Miller compensation with a zero-nulling resistor. Adapted from [@baker_bad_design].](fig19.png){#fig-baker-critique}
 
 The goal of this project was to learn design methodology rather than implement a production-ready topology. The two-stage Miller-compensated OTA remains the standard introductory circuit for this purpose, providing clear insight into compensation theory, pole-zero placement, and the gain-bandwidth tradeoff. Exploring Baker's recommended alternatives is a natural next step.
 
@@ -515,11 +545,16 @@ The goal of this project was to learn design methodology rather than implement a
 
 In this document, I have tried to include everything I have learnt designing this project as an absolute beginner to both SPICE as well as analog electronics in general.
 
-I have spent nearly a month on this topic, out of which only about a week or two was spent on building this. I first discovered the two-stage CMOS OTA in an IEEE conference paper by M. Kadam, which used skywater pdk, I tried to understand it, but couldn't get an intuitive feel for why the design choices were made the way they were. But this motivated me to try design this, since it seemed to use the basic building blocks I had already studied. I followed up with youtube videos on the same topic, but again, while I was following the steps, I didn't understand why we were making the choices that we were, but at the same time, I felt I was getting somewhat more comfortable with the topic. I followed up with [this question on Reddit](https://www.reddit.com/r/chipdesign/comments/1t0mj9j/how_do_you_actually_design_a_circuit/) and got incredibly helpful and detailed answers. Specifically, user u/Fast_Document1643 was very helpful, replied to all my questions with great patience, even if they were basic, and also pointed me towards the book I used as my main source of reference here: CMOS Analog Circuit Design by Allen & Holberg.\
-Anyway, this went through the entire process of the design and the steps followed here are taken from the book.
+I have spent nearly a month on this topic, out of which only about a week or two was spent on building this. I first discovered the two-stage CMOS OTA in an IEEE conference paper by M. Kadam[@kadam_ota], which used skywater pdk, I tried to understand it, but couldn't get an intuitive feel for why the design choices were made the way they were.
 
-I was also stuck in measuring the operating points and open loop gain for a long time, scratching my head cause my op-amp would just stick to a value near the power supply. Like in every course, I have read that the offset voltage getting multiplied with a huge gain causes this, but I just couldn't think of that in my design process (I guess this is what experience develops?). After realising this, work was a lot easier.
+But this motivated me to try to design this, since it seemed to use the basic building blocks I had already studied. I followed up with YouTube videos on the same topic, but again, while I was following the steps, I didn't understand why we were making the choices that we were, but at the same time, I felt I was getting somewhat more comfortable with the topic.
+
+I followed up with this question on Reddit and got incredibly helpful and detailed answers. Specifically, user u/Fast_Document1643 was very helpful, replied to all my questions with great patience, even if they were basic, and also pointed me towards the book I used as my main source of reference here: **CMOS Analog Circuit Design by Allen & Holberg.** The entire process of the design and the steps followed here are taken from the book.
+
+I was also stuck in measuring the operating points and open loop gain for a long time, scratching my head because my op-amp would just stick to a value near the power supply. Like in every course, I have read that the offset voltage getting multiplied with a huge gain causes this, but I just couldn't think of that in my design process (I guess this is what experience develops?). After realizing this, work was a lot easier.
 
 On the topic of other measurements, while I did know the concept of slew rate and output voltage swing, I didn't know how to measure their exact values, so I had to study up measurement techniques before actually using the .dc or .tran commands to find them.
 
-For iterations, I had surprisingly little to worry about. Allen & Holberg's book mentioned the exact pitfalls and exactly which values to look into, so all I had to was mess with them and look at parameters that were dependent on them and make sure all were within range. I probably should have rounded up the $\frac{W}{L}$ ratio of M6 to 87 instead of keeping it at 86.6, but I kinda forgot I didn't until everything was done, and when all the parameters seemed be within margin, I didn't really want to change anything.
+For iterations, I had surprisingly little to worry about. Allen & Holberg's book mentioned the exact pitfalls and exactly which values to look into, so all I had to do was mess with them and look at parameters that were dependent on them and make sure all were within range. I probably should have rounded up the $\frac{W}{L}$ ratio of M6 to 87 instead of keeping it at 86.6, but I kinda forgot I didn't until everything was done, and when all the parameters seemed be within margin, I didn't really want to change anything.
+
+Overall, even though I wanted to pull my hair out at times, I had fun building this. Coming from solving problems in my textbooks to actually designing something to meet specifications is a lot more challenging than I expected. 

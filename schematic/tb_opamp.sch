@@ -5,11 +5,11 @@ V {}
 S {}
 F {}
 E {}
+N 440 -280 450 -280 {lab=VOUT}
 N 110 -170 440 -170 {lab=VOUT}
 N 110 -240 110 -170 {lab=VOUT}
 N 440 -280 440 -170 {lab=VOUT}
 N 400 -280 440 -280 {lab=VOUT}
-N 440 -280 480 -280 {lab=VOUT}
 C {opamp_scheme.sym} 150 -280 0 0 {name=}
 C {vsource.sym} 70 -450 0 0 {name=VDD value=2.5 savecurrent=false}
 C {vdd.sym} 70 -480 0 0 {name=l1 lab=VDD}
@@ -23,7 +23,7 @@ C {lab_pin.sym} 220 -420 2 0 {name=p1 sig_type=std_logic lab=I_REF}
 C {lab_pin.sym} 230 -350 0 1 {name=p2 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 280 -230 0 1 {name=p3 sig_type=std_logic lab=I_REF}
 C {lab_pin.sym} 230 -210 0 1 {name=p6 sig_type=std_logic lab=VSS}
-C {code.sym} 530 -270 0 0 {name=models only_toplevel=false value=
+C {code.sym} 350 -480 0 0 {name=models only_toplevel=false value=
 ".MODEL N_1u NMOS LEVEL  = 3                  
 
 + TOX    = 200E-10         NSUB   = 1E17            GAMMA  = 0.5          
@@ -66,26 +66,28 @@ C {code.sym} 530 -270 0 0 {name=models only_toplevel=false value=
 
 + CJSW   = 300E-12         MJSW   = 0.5
 "}
-C {code.sym} 650 -270 0 0 {name=parameters only_toplevel=false value=
+C {code.sym} 470 -480 0 0 {name=parameters only_toplevel=false value=
 ".param L=1u W1=3.5u W2=3.5u W3=10u W4=10u W5=3u W6=86.6u W7=13u W8=3u Cc=2.5p
 "}
-C {lab_wire.sym} 480 -280 0 1 {name=p7 sig_type=std_logic lab=VOUT}
-C {code_shown.sym} 430 -520 0 0 {name=spice only_toplevel=false value=
+C {lab_wire.sym} 450 -280 0 1 {name=p7 sig_type=std_logic lab=VOUT}
+C {code_shown.sym} 590 -500 0 0 {name=spice only_toplevel=false value=
 "
 .control
-tran 10n 50u
-let p_inst = (-i(VDD)*v(VDD))+(i(VDD)*-v(VSS))
-meas tran pwr_dis avg p_inst
-write tb_opamp_pwr.raw
+save all
+op
+write tb_opamp.raw
+print @m.x1.m1[id]
+print @m.x1.m2[id]
+print @m.x1.m3[id]
+print @m.x1.m4[id]
+print @m.x1.m5[id]
+print @m.x1.m6[id]
+print @m.x1.m7[id]
+print @m.x1.m8[id]
+print all
 .endc
 "}
-C {vsource.sym} 300 -450 0 0 {name=VIN_2 value="SINE(1.18 1 100k)" savecurrent=false}
-C {vdd.sym} 300 -480 0 0 {name=VCM4 lab=VIN_2}
+C {vsource.sym} 300 -450 0 0 {name=VIN value=1.18 savecurrent=false}
+C {vdd.sym} 300 -480 0 0 {name=VCM4 lab=VIN}
 C {gnd.sym} 300 -420 0 0 {name=VCM5 lab=0}
-C {lab_pin.sym} 110 -320 0 0 {name=p5 sig_type=std_logic lab=VIN_2}
-C {capa.sym} 470 -250 0 0 {name=C1
-m=1
-value=1p
-footprint=1206
-device="ceramic capacitor"}
-C {gnd.sym} 470 -220 0 0 {name=l5 lab=0}
+C {lab_pin.sym} 110 -320 0 0 {name=p5 sig_type=std_logic lab=VIN}

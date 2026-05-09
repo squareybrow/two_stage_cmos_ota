@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: ../docs
 
 manuscript:
   article: index.qmd
@@ -9,7 +10,7 @@ format:
     theme: catppuccin-mocha.scss
     css: custom.css
     comments:
-      hypothesis: true
+      hypothesis: false
   pdf:
     documentclass: article
     number-sections: true

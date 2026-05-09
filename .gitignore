@@ -1,2 +1,25 @@
-venv/
-.idea/
+# Quarto / site build
+.quarto/
+**/_site/
+**/index_files/
+docs/
+
+# Quarto project cache
+**/project-cache/
+**/quarto-session-*/
+
+# Simulation outputs / plots (binary)
+*.raw
+*.raw.*
+*.plt
+*.log
+simulations/output/
+
+# Editor / OS
+.DS_Store
+*.swp
+*~
+
+# Tool caches
+.xschem/
+*.cache
