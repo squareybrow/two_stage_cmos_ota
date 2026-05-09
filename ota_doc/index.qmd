@@ -326,7 +326,7 @@ Based on the napkin math above, the following performace is expected:
 |--------------|-----------------------------|-------------------------|
 | DC Gain      | $\approx74.9 dB (5600 V/V)$ | $> 73.98 dB (5000 V/V)$ |
 | GBW          | $5 MHz$                     | $5 MHz$                 |
-| Phase Margin | $> 60^{\circ}$              | $> 60^{\circ}$          |
+| Phase Margin | $66.03^{\circ}$              | $> 60^{\circ}$          |
 | Slew Rate    | $10 V/μs$                   | \> $10 V/μs$            |
 | Power        | $0.95mW$                    | \< $2mW$                |
 
@@ -428,7 +428,7 @@ The results using both methods are given below:
 |--------------|-----------|-----------|---------------|
 | Max Gain     | 74.07 dB  | 74.00 dB  | \>73.98 dB    |
 | GBW          | 5.85 MHz  | 5.85 MHz  | 5 MHz         |
-| Phase Margin | 63.18°    | 63.19     | \>60°         |
+| Phase Margin | $63.18^{\circ}$    | $63.19^{\circ}$     | \>60°         |
 
 ## Transient Response and Slew Rate
 
