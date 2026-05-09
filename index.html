@@ -516,7 +516,7 @@ P_{dis} = 0.95{\space}mW\]</span></p>
 </tr>
 <tr class="odd">
 <td>Phase Margin</td>
-<td><span class="math inline">\(&gt; 60^{\circ}\)</span></td>
+<td><span class="math inline">\(66.03^{\circ}\)</span></td>
 <td><span class="math inline">\(&gt; 60^{\circ}\)</span></td>
 </tr>
 <tr class="even">
@@ -745,6 +745,12 @@ Figure&nbsp;14: Bode Plot for RC Method of measuring open-loop gain
 </div>
 <p>The results using both methods are given below:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 29%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Parameter</th>
@@ -768,8 +774,8 @@ Figure&nbsp;14: Bode Plot for RC Method of measuring open-loop gain
 </tr>
 <tr class="odd">
 <td>Phase Margin</td>
-<td>63.18°</td>
-<td>63.19</td>
+<td><span class="math inline">\(63.18^{\circ}\)</span></td>
+<td><span class="math inline">\(63.19^{\circ}\)</span></td>
 <td>&gt;60°</td>
 </tr>
 </tbody>
@@ -1165,7 +1171,7 @@ Kadam, M. 2021. <span>“Dual Stage CMOS Operational Amplifier Design in Sky-Wat
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/squareybrow\.github\.io\/two_stage_cmos_ota\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
