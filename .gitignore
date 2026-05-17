@@ -3,6 +3,7 @@
 **/_site/
 **/index_files/
 docs/
+ota_doc/
 
 # Quarto project cache
 **/project-cache/
